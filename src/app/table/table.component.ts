@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Firestore,collection,collectionData} from "@angular/fire/firestore";
+import {Firestore,collection,collectionGroup} from "firebase/firestore";
 
 @Component({
   selector: 'app-table',
@@ -13,11 +13,8 @@ export class TableComponent {
   }
   getData(){
     const collenctInst = collection(this.firestore,"users");
-    collectionData(collenctInst).subscribe((data)=>
-    {
-      this.users = data;
-      console.log(data);
-    });
+    this.users = collectionGroup(this.firestore,"users")
+    console.log(this.users);
   }
 
 
