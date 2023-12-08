@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {Firestore,collection,addDoc} from "@angular/fire/firestore";
+import {Firestore,collection,addDoc,CollectionReference} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-root',
@@ -13,12 +13,14 @@ export class AppComponent {
     n_cin : "",
     password : "",
   }
+  private collections: CollectionReference;
   constructor(private firestore : Firestore) {
+    this.collections = collection(this.firestore, 'users')
   }
   payer() {
     console.log(this.user);
     alert("Paiement effectué avec succès");
-    const collenctInst = collection(this.firestore,"users");
+    const collenctInst = collection(this.collections,"users");
     addDoc(collenctInst,this.user).then((data)=>console.log(data)).catch((err)=>console.log(err));
   }
 }
